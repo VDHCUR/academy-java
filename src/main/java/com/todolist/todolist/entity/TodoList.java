@@ -10,7 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +31,10 @@ public class TodoList {
     @Column(nullable = false)
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "list_id", referencedColumnName = "id")
+    private List<Task> tasks;
+
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss Z")
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -44,6 +50,7 @@ public class TodoList {
     public TodoList(@JsonProperty("id") UUID id, @JsonProperty("name") @NotBlank String name) {
         this.id = id;
         this.name = name;
+        this.tasks = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -52,6 +59,10 @@ public class TodoList {
 
     public String getName() {
         return name;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public void setName(String name) {
