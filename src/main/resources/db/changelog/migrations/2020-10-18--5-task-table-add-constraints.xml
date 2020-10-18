@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd ">
+
+    <changeSet id="8" author="Konstantin Egorov">
+        <addPrimaryKey tableName="tasks" columnNames="id"/>
+        <rollback>
+            ALTER TABLE tasks DROP CONSTRAINT tasks_pkey;
+        </rollback>
+    </changeSet>
+    <changeSet id="9" author="Konstantin Egorov">
+        <addForeignKeyConstraint baseTableName="tasks" baseColumnNames="list_id" constraintName="list_fkey"
+                                 referencedTableName="todolists"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+        <rollback>
+            ALTER TABLE tasks DROP CONSTRAINT list_fkey;
+        </rollback>
+    </changeSet>
+    <changeSet id="10" author="Konstantin Egorov">
+        <addNotNullConstraint tableName="tasks" columnName="list_id"/>
+        <rollback>
+            ALTER TABLE tasks ALTER COLUMN list_id DROP NOT NULL;
+        </rollback>
+    </changeSet>
+    <changeSet id="11" author="Konstantin Egorov">
+        <addNotNullConstraint tableName="tasks" columnName="name"/>
+        <rollback>
+            ALTER TABLE tasks ALTER COLUMN name DROP NOT NULL;
+        </rollback>
+    </changeSet>
+    <changeSet id="12" author="Konstantin Egorov">
+        <addNotNullConstraint tableName="tasks" columnName="description"/>
+        <rollback>
+            ALTER TABLE tasks ALTER COLUMN description DROP NOT NULL;
+        </rollback>
+    </changeSet>
+    <changeSet id="13" author="Konstantin Egorov">
+        <addNotNullConstraint tableName="tasks" columnName="urgency"/>
+        <rollback>
+            ALTER TABLE tasks ALTER COLUMN name DROP NOT NULL;
+        </rollback>
+    </changeSet>
+    <changeSet id="14" author="Konstantin Egorov">
+        <sql>
+            ALTER TABLE tasks ADD CONSTRAINT urgency_check CHECK (urgency &gt;=0 AND urgency &lt;= 5)
+        </sql>
+        <rollback>
+            ALTER TABLE tasks DROP CONSTRAINT urgency_check;
+        </rollback>
+    </changeSet>
+    <changeSet id="15" author="Konstantin Egorov">
+        <addNotNullConstraint tableName="tasks" columnName="is_done"/>
+        <rollback>
+            ALTER TABLE tasks ALTER COLUMN name DROP NOT NULL;
+        </rollback>
+    </changeSet>
+    <changeSet id="16" author="Konstantin Egorov">
+        <addNotNullConstraint tableName="tasks" columnName="created_at"/>
+        <rollback>
+            ALTER TABLE tasks ALTER COLUMN created_at DROP NOT NULL;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="17" author="Konstantin Egorov">
+        <addNotNullConstraint tableName="tasks" columnName="updated_at"/>
+        <rollback>
+            ALTER TABLE tasks ALTER COLUMN updated_at DROP NOT NULL;
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
