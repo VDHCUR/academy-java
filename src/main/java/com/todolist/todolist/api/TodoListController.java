@@ -1,10 +1,6 @@
 package com.todolist.todolist.api;
 
 import com.todolist.todolist.entity.TodoList;
-import com.todolist.todolist.errors.ListIncorrectNameException;
-import com.todolist.todolist.errors.ListNotFoundException;
-import com.todolist.todolist.errors.ListUnsupportedFieldPatchException;
-import com.todolist.todolist.repository.TodoListRepository;
 import com.todolist.todolist.service.TodoListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("/lists")
@@ -42,7 +36,7 @@ public class TodoListController {
 
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping("/create")
-    public TodoList addList(@Valid @NotBlank @RequestBody TodoList todoList){
+    public TodoList createList(@Valid @NotBlank @RequestBody TodoList todoList){
         return todoListService.createList(todoList);
     }
 

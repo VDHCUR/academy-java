@@ -2,7 +2,7 @@ package com.todolist.todolist.service;
 
 import com.todolist.todolist.entity.TodoList;
 import com.todolist.todolist.errors.ListIncorrectNameException;
-import com.todolist.todolist.errors.ListNotFoundException;
+import com.todolist.todolist.errors.NotFoundException;
 import com.todolist.todolist.errors.ListUnsupportedFieldPatchException;
 import com.todolist.todolist.repository.TodoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class TodoListService {
 
-    private TodoListRepository todoListRepository;
+    private final TodoListRepository todoListRepository;
 
     @Autowired
     public TodoListService(TodoListRepository todoListRepository){
@@ -29,10 +28,11 @@ public class TodoListService {
     }
 
     public TodoList getListById(UUID id){
-        return todoListRepository.findById(id).orElseThrow(() -> new ListNotFoundException(id));
+        return todoListRepository.findById(id).orElseThrow(() -> new NotFoundException("List", id));
     }
 
     public TodoList createList(TodoList todoList){
+
         return todoListRepository.save(todoList);
     }
 
@@ -48,12 +48,14 @@ public class TodoListService {
             } else {
                 throw new ListIncorrectNameException();
             }
-        }).orElseThrow(() -> new ListNotFoundException(id));
+        }).orElseThrow(() -> new NotFoundException("List", id));
     }
 
     public void deleteListById(UUID id){
-        todoListRepository.deleteById(id);
+        if (todoListRepository.existsById(id)){
+            todoListRepository.deleteById(id);
+        } else {
+            throw new NotFoundException("List", id);
+        }
     }
-
-
 }

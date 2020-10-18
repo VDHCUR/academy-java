@@ -10,14 +10,13 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @ControllerAdvice()
 public class TodoListExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ListNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     protected ResponseEntity<CustomErrorResponse> handleListNotFound(Exception ex){
         return new ResponseEntity<>(
                 new CustomErrorResponse(new Date(),
