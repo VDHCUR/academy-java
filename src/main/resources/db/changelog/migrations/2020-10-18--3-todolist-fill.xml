@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd ">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="6" author="Konstantin Egorov">
+        <insert tableName="todolists">
+            <column name="id" value="eccd7f38-300a-4c67-9b42-39669dea8ed6"/>
+            <column name="name" value="Schedule"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="2af46b0d-f8c2-4af2-90e3-831c69159f2c"/>
+            <column name="name" value="Grocery"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="e636326f-39f3-4998-8362-9ed2ebd11e5d"/>
+            <column name="name" value="Cleaning"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="e4f8aeb6-e17b-4368-980a-1a729ba0ed61"/>
+            <column name="name" value="Laundry"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="58945230-343c-4cc8-b112-fe0fdc111974"/>
+            <column name="name" value="Job"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="e8cfa33b-1c40-4418-b8f7-50109c4323ff"/>
+            <column name="name" value="Project 1"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="af8cf6e4-8262-4c90-90a9-8f382b1f524b"/>
+            <column name="name" value="Meeting 1"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="4f4b2e56-41d2-45e6-a5b5-9100df499fcf"/>
+            <column name="name" value="Project 2"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="3dae185d-ee48-4044-b00f-5e9300596ef8"/>
+            <column name="name" value="Car Repair"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="147d19ef-9b72-4b2e-9ba5-b9187d6bc441"/>
+            <column name="name" value="Weekend 1"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="272e9dfc-ba78-47ac-bbac-c9996bfe5324"/>
+            <column name="name" value="Weekend 2"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="ea00a5a0-b5a6-4bab-bad5-e4c54319562d"/>
+            <column name="name" value="Project 3"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="884468ce-f947-4099-acb5-59ed88f963a9"/>
+            <column name="name" value="API Development"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="73afbe0c-0727-4556-8334-f3f7e87ff10a"/>
+            <column name="name" value="Dunno what to write"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="todolists">
+            <column name="id" value="1ab82aee-25d9-430d-9aa0-e356ff943f33"/>
+            <column name="name" value="Last one"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <rollback>
+            TRUNCATE todolists CASCADE;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
