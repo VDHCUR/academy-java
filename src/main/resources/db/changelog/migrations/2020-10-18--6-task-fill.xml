@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd ">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+    <changeSet id="18" author="Konstantin Egorov">
+        <insert tableName="tasks">
+            <column name="id" value="8938b1fc-500c-4bab-805b-b90ab8353a60"/>
+            <column name="list_id" value="eccd7f38-300a-4c67-9b42-39669dea8ed6"/>
+            <column name="name" value="Soda"/>
+            <column name="urgency" value="4"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="3d59514a-935b-4e96-a167-28d7533f6e8d"/>
+            <column name="list_id" value="2af46b0d-f8c2-4af2-90e3-831c69159f2c"/>
+            <column name="name" value="Engine"/>
+            <column name="description" value="Castor fiber"/>
+            <column name="urgency" value="3"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="ebd81fcb-bcb1-4148-a0ec-9a3a7783a1d3"/>
+            <column name="list_id" value="e4f8aeb6-e17b-4368-980a-1a729ba0ed61"/>
+            <column name="name" value="Soda"/>
+            <column name="description" value="Phylurus milli"/>
+            <column name="urgency" value="2"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="f47a3608-6e12-4967-b92c-213373df028f"/>
+            <column name="list_id" value="e8cfa33b-1c40-4418-b8f7-50109c4323ff"/>
+            <column name="name" value="Banana"/>
+            <column name="description" value="Trichosurus vulpecula"/>
+            <column name="urgency" value="4"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="876cf567-5dbb-47d3-bb2d-249bf49b6f9a"/>
+            <column name="list_id" value="147d19ef-9b72-4b2e-9ba5-b9187d6bc441"/>
+            <column name="name" value="Engine"/>
+            <column name="urgency" value="5"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="ac4e8217-dfa5-41b5-819a-e71bd0b69966"/>
+            <column name="list_id" value="e4f8aeb6-e17b-4368-980a-1a729ba0ed61"/>
+            <column name="name" value="Umbrella"/>
+            <column name="urgency" value="1"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="a6949c08-f467-4a8b-90a6-554e9dc9002b"/>
+            <column name="list_id" value="e8cfa33b-1c40-4418-b8f7-50109c4323ff"/>
+            <column name="name" value="Glass"/>
+            <column name="description" value="Psittacula krameri"/>
+            <column name="urgency" value="2"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="407d8d5f-a270-4f1a-a06f-613f11cf9e3c"/>
+            <column name="list_id" value="3dae185d-ee48-4044-b00f-5e9300596ef8"/>
+            <column name="name" value="Engine"/>
+            <column name="description" value="Suricata suricatta"/>
+            <column name="urgency" value="5"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="ce16b930-e3d7-4df4-b0e6-999486823a61"/>
+            <column name="list_id" value="3dae185d-ee48-4044-b00f-5e9300596ef8"/>
+            <column name="name" value="Banana"/>
+            <column name="description" value="Sula dactylatra"/>
+            <column name="urgency" value="5"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="822c50b8-b03a-4495-b1c7-84a9b736cd9b"/>
+            <column name="list_id" value="3dae185d-ee48-4044-b00f-5e9300596ef8"/>
+            <column name="name" value="Soda"/>
+            <column name="description" value="Dasyurus maculatus"/>
+            <column name="urgency" value="3"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="54f2296a-14b0-4713-b1af-283918c56cb8"/>
+            <column name="list_id" value="eccd7f38-300a-4c67-9b42-39669dea8ed6"/>
+            <column name="name" value="Flour"/>
+            <column name="description" value="Camelus dromedarius"/>
+            <column name="urgency" value="2"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="c8be61d5-67d3-4837-81be-f79d7cc231ab"/>
+            <column name="list_id" value="3dae185d-ee48-4044-b00f-5e9300596ef8"/>
+            <column name="name" value="Battery"/>
+            <column name="description" value="Laniarius ferrugineus"/>
+            <column name="urgency" value="4"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="tasks">
+            <column name="id" value="b2de1dd1-478b-4793-88e2-9169e8a83c21"/>
+            <column name="list_id" value="3dae185d-ee48-4044-b00f-5e9300596ef8"/>
+            <column name="name" value="Glass"/>
+            <column name="description" value="Mustela nigripes"/>
+            <column name="urgency" value="1"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

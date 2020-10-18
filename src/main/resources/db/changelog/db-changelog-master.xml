@@ -8,4 +8,7 @@
     <include file="migrations/2020-10-18--1-todolist-table-create.xml" relativeToChangelogFile="true"/>
     <include file="migrations/2020-10-18--2-todolist-table-add-constraints.xml" relativeToChangelogFile="true"/>
     <include file="migrations/2020-10-18--3-todolist-fill.xml" relativeToChangelogFile="true"/>
+    <include file="migrations/2020-10-18--4-task-table-create.xml" relativeToChangelogFile="true"/>
+    <include file="migrations/2020-10-18--5-task-table-add-constraints.xml" relativeToChangelogFile="true"/>
+    <include file="migrations/2020-10-18--6-task-fill.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
