@@ -1,7 +1,9 @@
 package com.todolist.todolist.service;
 
 import com.todolist.todolist.dto.ListsGetAllRequestDTO;
-import com.todolist.todolist.dto.TodoListDTO;
+import com.todolist.todolist.dto.TodoListRequestDTO;
+import com.todolist.todolist.dto.TodoListResponseDTO;
+import com.todolist.todolist.entity.Task;
 import com.todolist.todolist.entity.TodoList;
 import com.todolist.todolist.errors.*;
 import com.todolist.todolist.repository.TodoListRepository;
@@ -10,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class TodoListService {
      * @param additionalData дополнительные параметры о номере страницы, сортировке
      * @return страницу со списками дел, обработанную в соответсвии с доп. параметрами
      */
-    public Page<TodoListDTO> getAllLists(ListsGetAllRequestDTO additionalData){
+    public Page<TodoListResponseDTO> getAllLists(ListsGetAllRequestDTO additionalData){
         Pageable pageable = PageRequest.of(
                 additionalData.getPage(),
                 10,
@@ -51,7 +52,7 @@ public class TodoListService {
         int totalElements = (int) page.getTotalElements();
         return new PageImpl<>(
                 page.stream()
-                        .map(TodoListDTO::new)
+                        .map(TodoListResponseDTO::new)
                         .collect(Collectors.toList()), pageable, totalElements);
     }
 
@@ -60,9 +61,9 @@ public class TodoListService {
      * @param id идентификатор списка дел
      * @return Список дел с указанным идентификатором или вызывает ошибку "Не найдено"
      */
-    public TodoListDTO getListById(UUID id){
+    public TodoListResponseDTO getListById(UUID id){
         TodoList todoList = todoListRepository.findById(id).orElseThrow(() -> new NotFoundException("List", id));
-        return new TodoListDTO(todoList);
+        return new TodoListResponseDTO(todoList);
     }
 
 
@@ -71,25 +72,20 @@ public class TodoListService {
      * @param todoList данные о списке для сохранения
      * @return Созданный список дел
      */
-    public TodoListDTO createList(TodoList todoList){
-        return new TodoListDTO(todoListRepository.save(todoList));
+    public TodoListResponseDTO createList(TodoListRequestDTO todoList){
+
+        return new TodoListResponseDTO(todoListRepository.save(new TodoList(
+                todoList.getName()
+        )));
     }
 
-    public TodoListDTO updateListNameById(Map<String, String> updateData, UUID id){
-        if (updateData.isEmpty()){
+    public TodoListResponseDTO updateListNameById(TodoListRequestDTO updateData, UUID id){
+        if (updateData == null){
             throw new EmptyRequestBodyException();
         }
         return todoListRepository.findById(id).map(x -> {
-            if (!updateData.containsKey("name")){
-                throw new UnsupportedFieldPatchException(updateData.keySet());
-            }
-            String name = updateData.get("name");
-            if (name != null && !name.trim().isEmpty()) {
-                x.setName(name);
-                return new TodoListDTO(todoListRepository.save(x));
-            } else {
-                throw new ListIncorrectNameException();
-            }
+            x.setName(updateData.getName());
+            return new TodoListResponseDTO(todoListRepository.save(x));
         }).orElseThrow(() -> new NotFoundException("List", id));
     }
 
