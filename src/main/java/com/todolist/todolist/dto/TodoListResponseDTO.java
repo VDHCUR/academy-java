@@ -6,9 +6,8 @@ import com.todolist.todolist.entity.TodoList;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Time;
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-public class TodoListDTO {
+public class TodoListResponseDTO implements Serializable {
     private UUID id;
     private String name;
     private List<Task> tasks;
@@ -36,7 +35,7 @@ public class TodoListDTO {
      * @param createdAt дата создания
      * @param updatedAt дата последнего изменения
      */
-    public TodoListDTO(UUID id, String name, List<Task> tasks, Timestamp createdAt, Timestamp updatedAt) {
+    public TodoListResponseDTO(UUID id, String name, List<Task> tasks, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.name = name;
         this.tasks = tasks;
@@ -50,7 +49,7 @@ public class TodoListDTO {
      * Конструктор класса, преобразующий список дел в DTO
      * @param todoList список дел для преобразования
      */
-    public TodoListDTO(TodoList todoList){
+    public TodoListResponseDTO(TodoList todoList){
         this.id = todoList.getId();
         this.name = todoList.getName();
         this.tasks = todoList.getTasks();

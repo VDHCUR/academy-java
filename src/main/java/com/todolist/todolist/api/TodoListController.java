@@ -1,9 +1,12 @@
 package com.todolist.todolist.api;
 
 import com.todolist.todolist.dto.ListsGetAllRequestDTO;
-import com.todolist.todolist.dto.TodoListDTO;
-import com.todolist.todolist.entity.TodoList;
+import com.todolist.todolist.dto.TodoListRequestDTO;
+import com.todolist.todolist.dto.TodoListResponseDTO;
 import com.todolist.todolist.service.TodoListService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -12,15 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
  * Контроллер для действий со списками дел
  */
-@RequestMapping("/lists")
+
 @RestController
+@RequestMapping("/lists")
 public class TodoListController {
 
     private final TodoListService todoListService;
@@ -40,8 +42,12 @@ public class TodoListController {
      * @param additionalData дополнительные параметры: сортировка, номер страницы, фильтрация
      * @return Страница со списками дел
      */
+    @ApiOperation("Get todolists paginated, sorted, filtered (if specified)")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Todolists successfully received, sorted and filtered if were specified"),
+    })
     @PostMapping
-    public Page<TodoListDTO> getAllLists(@RequestBody @Nullable ListsGetAllRequestDTO additionalData){
+    public Page<TodoListResponseDTO> getAllLists(@RequestBody @Nullable ListsGetAllRequestDTO additionalData){
         if (additionalData == null){
             additionalData = new ListsGetAllRequestDTO();
         }
@@ -54,8 +60,13 @@ public class TodoListController {
      * @param id идентификатор списка
      * @return Список дел с данным идентификатором
      */
+    @ApiOperation("Get todolists with given id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Todolist successfully received"),
+            @ApiResponse(code = 404, message = "List was not found")
+    })
     @GetMapping(path = "{id}")
-    public TodoListDTO getListById(@PathVariable("id") UUID id){
+    public TodoListResponseDTO getListById(@PathVariable("id") UUID id){
         return todoListService.getListById(id);
     }
 
@@ -64,9 +75,14 @@ public class TodoListController {
      * @param todoList данные о создаваемом списке, имя должно быть не пустым
      * @return Созданный список
      */
+    @ApiOperation("Creates todolists")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Todolist successfully received"),
+            @ApiResponse(code = 400, message = "Name should not be empty")
+    })
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping("/create")
-    public TodoListDTO createList(@Valid @NotBlank @RequestBody TodoList todoList){
+    public TodoListResponseDTO createList(@Valid @NotBlank @RequestBody TodoListRequestDTO todoList){
         return todoListService.createList(todoList);
     }
 
@@ -74,6 +90,11 @@ public class TodoListController {
      * Передаёт запрос сервису на удаление списка дел из репозитория
      * @param id идентификатор списка дел
      */
+    @ApiOperation("Deletes todolists with given id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Todolist successfully deleted"),
+            @ApiResponse(code = 404, message = "List was not found")
+    })
     @DeleteMapping(path = "{id}")
     public void deleteListById(@PathVariable("id") UUID id){
         todoListService.deleteListById(id);
@@ -85,8 +106,14 @@ public class TodoListController {
      * @param id идентификатор обновляемого списка дел
      * @return изменённый список дел
      */
+    @ApiOperation("Changes todolists with given id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Todolist successfully updated"),
+            @ApiResponse(code = 400, message = "Name should not be empty"),
+            @ApiResponse(code = 404, message = "List was not found")
+    })
     @PatchMapping(path = "{id}")
-    public TodoListDTO updateListName(@RequestBody Map<String, String> updateData, @PathVariable("id") UUID id){
+    public TodoListResponseDTO updateListName(@Valid @RequestBody TodoListRequestDTO updateData, @PathVariable("id") UUID id){
         return todoListService.updateListNameById(updateData, id);
     }
 }
