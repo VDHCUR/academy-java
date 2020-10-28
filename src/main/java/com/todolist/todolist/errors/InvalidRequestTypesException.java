@@ -21,7 +21,7 @@ public class InvalidRequestTypesException extends RuntimeException {
      * @param errors - сообщения о несоответствии типов
      */
     public InvalidRequestTypesException(HashMap<String, String> errors) {
-        super("Fields must match the following in 'errors' types:");
+        super("Fields must match followed in 'errors' types:");
         this.errors = errors.entrySet().stream().map(Object::toString).collect(Collectors.toList());
     }
 }

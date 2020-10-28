@@ -11,12 +11,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -29,9 +25,9 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Task{
+public class Task {
     @Id
-    @GeneratedValue(generator="system-uuid")
+    @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
@@ -44,15 +40,13 @@ public class Task{
     @Setter
     private TodoList todoList;
 
-    @NotBlank(message = "Name should not be blank")
+    @NotBlank(message = "Field 'name' should not be blank")
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private String description;
 
-    @Min(value = 1, message = "Minimum value for urgency is 1")
-    @Max(value = 5, message = "Minimum value for urgency is 5")
     @Column(nullable = false)
     private int urgency;
 
@@ -74,10 +68,11 @@ public class Task{
      * Конструктор класса дел. Создаёт объект с указанным названием, описанием, идентификатором и срочностью.
      * Если идентификатор не указан, генерируется новый.
      * По умолчанию, дело не выполнено
-     * @param id идентификатор дела
-     * @param name название дела
+     *
+     * @param id          идентификатор дела
+     * @param name        название дела
      * @param description описание дела
-     * @param urgency срочность дела от 1 до 5
+     * @param urgency     срочность дела от 1 до 5
      */
     public Task(@JsonProperty("id") UUID id,
                 @JsonProperty("name") @NotBlank String name,
@@ -95,7 +90,13 @@ public class Task{
             urgency = 1;
         }
         this.urgency = urgency;
-        isDone = 0;
+        this.isDone = 0;
+    }
+
+    public Task(String name, String description, int urgency) {
+        this.name = name;
+        this.description = description;
+        this.urgency = urgency;
     }
 
     /**

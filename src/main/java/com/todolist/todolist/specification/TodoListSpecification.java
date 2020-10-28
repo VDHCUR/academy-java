@@ -40,7 +40,7 @@ public class TodoListSpecification implements Specification<TodoList> {
                 Date dEnd = dateFormat.parse(filter + " 23:59:59");
                 return criteriaBuilder.between(root.get(property), dBegin, dEnd);
             } catch (ParseException e) {
-                System.out.println("ParseException");
+
                 return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
             }
 

@@ -3,6 +3,7 @@ package com.todolist.todolist.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,7 +13,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +23,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "todolists")
 public class TodoList {
 
@@ -34,7 +35,7 @@ public class TodoList {
     )
     private UUID id;
 
-    @NotBlank(message = "Name should not be blank")
+    @NotBlank(message = "Field 'name' should not be blank")
     @Column(nullable = false)
     private String name;
 
@@ -52,7 +53,10 @@ public class TodoList {
     @Column(name = "updated_at", nullable = false)
     private Timestamp updatedAt;
 
-    protected TodoList(){}
+    public TodoList (String name){
+        this.name = name;
+        this.tasks = new ArrayList<>();
+    }
 
     /**
      * Конструктор класса списка дел. Создаёт объект с указанным названием и идентификатором.

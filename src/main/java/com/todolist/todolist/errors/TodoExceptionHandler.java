@@ -12,7 +12,10 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 
@@ -22,39 +25,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice()
 public class TodoExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({
-            UnsupportedFieldPatchException.class,
-            EmptyRequestBodyException.class,
-    })
-    protected ResponseEntity<CustomErrorResponse> handleTodoExceptions(Exception ex){
-        return new ResponseEntity<>(
-                new CustomErrorResponse(new Date(),
-                        HttpStatus.BAD_REQUEST.value(),
-                        ex.getMessage()),
-                HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    protected ResponseEntity<CustomErrorResponse> handleNotFound(Exception ex){
-        return new ResponseEntity<>(
-                new CustomErrorResponse(new Date(),
-                        HttpStatus.NOT_FOUND.value(),
-                        ex.getMessage()),
-                HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(ListIncorrectNameException.class)
-    protected ResponseEntity<Object> handleListIncorrectName(Exception ex){
-        List<String> errors = new ArrayList<>();
-        errors.add(ex.getMessage());
-
-        return new ResponseEntity<>(
-                new CustomErrorsResponse(new Date(),
-                        HttpStatus.BAD_REQUEST.value(),
-                        ex.getMessage(),
-                        errors),
-                HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(InvalidRequestTypesException.class)
     protected ResponseEntity<Object> handleInvalidRequestTypes(InvalidRequestTypesException ex){
@@ -66,16 +36,36 @@ public class TodoExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.BAD_REQUEST);
     }
 
+
+    @ExceptionHandler(NotFoundException.class)
+    protected ResponseEntity<CustomErrorResponse> handleNotFound(Exception ex){
+        return new ResponseEntity<>(
+                new CustomErrorResponse(new Date(),
+                        HttpStatus.NOT_FOUND.value(),
+                        ex.getMessage()),
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmptyRequestBodyException.class)
+    protected ResponseEntity<CustomErrorResponse> handleEmptyRequestBody(Exception ex){
+        return new ResponseEntity<>(
+                new CustomErrorResponse(new Date(),
+                        HttpStatus.BAD_REQUEST.value(),
+                        ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex,
             HttpHeaders headers,
             HttpStatus status,
-            WebRequest request){
+            WebRequest request)
+    {
         return new ResponseEntity<>(
                 new CustomErrorResponse(new Date(),
                         status.value(),
-                        "The required request body is missing or not readable"),
+                        "Request body is missing or not readable"),
                 HttpStatus.BAD_REQUEST);
     }
 
@@ -109,7 +99,7 @@ public class TodoExceptionHandler extends ResponseEntityExceptionHandler {
                         HttpStatus.BAD_REQUEST.value(),
                         "Validation failed",
                         errors),
-                HttpStatus.NOT_FOUND);
+                HttpStatus.BAD_REQUEST);
     }
 
     private static String getCurrentUTCTime(){
