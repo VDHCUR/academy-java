@@ -20,4 +20,8 @@ public class NotFoundException extends RuntimeException{
         super(entityName + " id not found: " + id.toString());
     }
 
+    public NotFoundException(String entityName, String propertyName, String property){
+        super(entityName + " with this " + propertyName + " not found: " + property);
+    }
+
 }

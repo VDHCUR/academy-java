@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd ">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+    <changeSet id="18" author="Konstantin Egorov">
+        <insert tableName="roles">
+            <column name="id" value="0f55fd47-f9bb-4a5c-ad0b-8e099e821f91"/>
+            <column name="name" value="ROLE_ADMIN"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" value="0567741f-d6c8-48a0-bf38-8ffe1809d6bc"/>
+            <column name="name" value="ROLE_USER"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_at" valueDate="${now}"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

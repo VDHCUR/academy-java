@@ -25,14 +25,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Task {
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    private UUID id;
+public class Task extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "list_id", referencedColumnName = "id")
@@ -53,46 +46,33 @@ public class Task {
     @Column(nullable = false)
     private int isDone;
 
-    @CreationTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss Z")
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp createdAt;
-
-    @UpdateTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss Z")
-    @Column(name = "updated_at", nullable = false)
-    private Timestamp updatedAt;
-
+//    public Task(
+//                @JsonProperty("name") @NotBlank String name,
+//                @JsonProperty("description") String description,
+//                @JsonProperty("urgency") int urgency){
+//        this.name = name;
+//        if (Objects.isNull(description)) {
+//            description = "";
+//        }
+//        this.description = description;
+//        if (urgency > 5){
+//            urgency = 5;
+//        } else if(urgency < 1){
+//            urgency = 1;
+//        }
+//        this.urgency = urgency;
+//        this.isDone = 0;
+//    }
 
     /**
      * Конструктор класса дел. Создаёт объект с указанным названием, описанием, идентификатором и срочностью.
      * Если идентификатор не указан, генерируется новый.
      * По умолчанию, дело не выполнено
      *
-     * @param id          идентификатор дела
      * @param name        название дела
      * @param description описание дела
      * @param urgency     срочность дела от 1 до 5
      */
-    public Task(@JsonProperty("id") UUID id,
-                @JsonProperty("name") @NotBlank String name,
-                @JsonProperty("description") String description,
-                @JsonProperty("urgency") int urgency){
-        this.id = id;
-        this.name = name;
-        if (Objects.isNull(description)) {
-            description = "";
-        }
-        this.description = description;
-        if (urgency > 5){
-            urgency = 5;
-        } else if(urgency < 1){
-            urgency = 1;
-        }
-        this.urgency = urgency;
-        this.isDone = 0;
-    }
-
     public Task(String name, String description, int urgency) {
         this.name = name;
         this.description = description;

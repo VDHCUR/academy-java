@@ -7,7 +7,9 @@ import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -27,8 +29,8 @@ public class ListsGetAllRequestDTO implements Serializable {
         this.filter = "";
     }
 
-    private Set<String> getListProperties(){
-        Set<String> listProperties = new HashSet<>();
+    private List<String> getListProperties(){
+        List<String> listProperties = new ArrayList<>();
         for (Field f : TodoList.class.getDeclaredFields()){
             listProperties.add(f.getName());
         }

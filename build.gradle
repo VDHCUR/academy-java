@@ -22,10 +22,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "org.springframework.boot:spring-boot-starter-security"
 	implementation 'org.liquibase:liquibase-core:4.1.1'
 	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
 	implementation "io.springfox:springfox-boot-starter:3.0.0"
 	implementation "io.springfox:springfox-bean-validators"
+
+	compile 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtime 'io.jsonwebtoken:jjwt-impl:0.11.2',
+			'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
 	compile 'io.springfox:springfox-swagger-ui:3.0.0'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -39,4 +45,8 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+bootJar {
+	launchScript()
 }
